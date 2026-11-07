@@ -18,6 +18,8 @@ Read **and write** Thermia / Danfoss ground-source heat pump parameters from Hom
 
 > **Tested on:** Thermia Duo 400V 10 kW – Wemos D1 mini (ESP8266, ESPHome 2026.9.0) and ESP32-S3
 > (ESPHome 2026.9.1, together with [esphome-thermia-room](https://github.com/mdepa91/esphome-thermia-room)).
+> XIAO ESP32-C6 with ISO1540 and native Thread: EXT readings and a room target change from 21 to 20 °C
+> confirmed on a Thermia Duo, controller 901510, pump software 13.0 (ESPHome 2026.10.2).
 > Other Thermia / Danfoss models using the same EXT protocol (the one ThermIQ talks to) will most likely work,
 > but register meanings may differ – compare with your pump's display before trusting a value.
 
@@ -49,8 +51,8 @@ or [`example-xiao-esp32c6-photomos.yaml`](example-xiao-esp32c6-photomos.yaml) af
 three isolated PhotoMOS circuits for room emulation, night reduction and EVU.
 The [Swedish wiring and flashing guide](docs/hardware/xiao-esp32c6-iso1540.sv.md) covers the
 ISO1540 side orientation, XIAO D4/GPIO22 and D5/GPIO23, independent power/grounds,
-first communication and the optional PhotoMOS connections. The new C6 examples are compile-tested;
-their physical wiring and pump compatibility still require testing on the actual installation.
+first communication and the optional PhotoMOS connections. The C6 Thread profile has been tested
+on the installation above; the optional PhotoMOS circuits still require hardware testing.
 
 For an existing Thread network, use
 [`example-xiao-esp32c6-thread.yaml`](example-xiao-esp32c6-thread.yaml) and the
@@ -117,7 +119,10 @@ Do **not** add an `i2c:` block – the ESPHome I2C component can only be a maste
 
 ### Sensors
 
-All values are whole numbers as reported by the pump (temperatures in °C, signed 16-bit).
+Temperatures and the integral use signed 16-bit values. Indoor temperatures also use separate tenths
+registers. The four run-time sensors use unsigned 16-bit hours: for example, raw `0xFB0E` is 64,270 h,
+not −1,266 h. These sensors expose the counter register directly; they do not reconstruct lifetime
+hours beyond a 16-bit counter wrap.
 
 | Key | Register | Unit |
 |---|---|---|
@@ -291,7 +296,8 @@ on every push.
 ## Limitations
 
 - ESP8266 and ESP32 only. On ESP32 both pins must be GPIO0–31, and `inverted:` pins are not supported.
-- Verified on real hardware with an ESP8266 (Wemos D1 mini) and an ESP32-S3; other ESP32 variants are compile-tested.
+- Verified on real hardware with an ESP8266 (Wemos D1 mini), ESP32-S3 and XIAO ESP32-C6 over Thread;
+  other ESP32 variants are compile-tested. Register meanings still need checking on each pump version.
 - Temperatures have 1 °C resolution – that's what the pump reports. Indoor temperature and indoor target are the
   exception: the pump reports their tenths separately (r02/r04), so they have 0.1 °C.
 - Register meanings come from the ThermIQ map; not all are confirmed on every model.
