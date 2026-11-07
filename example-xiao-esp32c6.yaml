@@ -154,6 +154,7 @@ thermia:
 
 sensor:
   - platform: wifi_signal
+    id: wifi_signal_db
     name: WiFi signal
     update_interval: 60s
     entity_category: diagnostic

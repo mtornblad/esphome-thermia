@@ -52,6 +52,13 @@ ISO1540 side orientation, XIAO D4/GPIO22 and D5/GPIO23, independent power/ground
 first communication and the optional PhotoMOS connections. The new C6 examples are compile-tested;
 their physical wiring and pump compatibility still require testing on the actual installation.
 
+For an existing Thread network, use
+[`example-xiao-esp32c6-thread.yaml`](example-xiao-esp32c6-thread.yaml) and the
+[Swedish Thread guide](docs/hardware/xiao-esp32c6-thread.sv.md). This keeps the same EXT
+pins and ESPHome API, replaces WiFi with native Thread/IPv6, and reads the network's
+active dataset from `thread_dataset_tlv` in your local `secrets.yaml`. A working Thread
+border router is required. Both C6 YAML files must remain alongside each other.
+
 ### EXT connector
 
 On the controller board of a Thermia Duo (PIC16F887 board) the EXT header is at the top edge, right next to the

@@ -1,0 +1,44 @@
+# Same XIAO C6 / ISO1540 wiring as the WiFi version, using Thread instead.
+# Put the existing Thread network's ACTIVE dataset in secrets.yaml.
+# First flash by USB. A working Thread border router and LAN IPv6 are required.
+packages:
+  ext: !include example-xiao-esp32c6.yaml
+
+# ESPHome 2026.10.2 does not support WiFi and native Thread together.
+wifi: !remove
+captive_portal: !remove
+
+network:
+  enable_ipv6: true
+
+openthread:
+  id: thread_network
+  device_type: FTD
+  tlv: !secret thread_dataset_tlv
+  force_dataset: true
+
+sensor:
+  - id: !remove wifi_signal_db
+  - platform: openthread_info
+    parent_average_rssi:
+      name: Thread parent RSSI
+    parent_link_quality_in:
+      name: Thread link quality in
+    parent_link_quality_out:
+      name: Thread link quality out
+    attach_attempts:
+      name: Thread anslutningsforsok
+    tx_retries:
+      name: Thread omsandningar
+
+text_sensor:
+  - platform: openthread_info
+    role:
+      name: Thread roll
+    ip_address:
+      name: Thread IPv6
+    network_name:
+      name: Thread natverk
+
+# The ESPHome API and its encryption key are unchanged. This is ESPHome over
+# Thread, not a Matter device; no Matter pairing code is used.
