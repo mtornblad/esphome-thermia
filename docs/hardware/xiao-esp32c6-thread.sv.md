@@ -66,7 +66,9 @@ Lägg till i din befintliga, git-ignorerade `secrets.yaml`:
 thread_dataset_tlv: "DIN_FULLSTANDIGA_HEXSTRANG"
 ```
 
-Behåll `api_encryption_key` och `ota_password`. WiFi-fälten får stå kvar i
+Behåll din befintliga `api_encryption_key`: OTA återanvänder samma nyckel.
+`ota_password` får stå kvar men används inte av de aktuella C6-exemplen.
+WiFi-fälten får stå kvar i
 `secrets.yaml`, men används inte av Thread-bygget. Datasetet är en hemlighet:
 publicera det inte i GitHub, skärmbilder eller chatten. Exempelvärdet i
 `secrets.example.yaml` måste ersättas; det är avsiktligt ingen fungerande nyckel.
@@ -79,8 +81,8 @@ git pull --ff-only
 .venv\Scripts\activate
 set "ESPHOME_ESP_IDF_PREFIX=C:\temp\idf"
 set "ESPHOME_BUILD_PATH=C:\temp\b"
-esphome config example-xiao-esp32c6-thread.yaml
-esphome run example-xiao-esp32c6-thread.yaml --device COMxx
+esphome -s thermia_component_source components config example-xiao-esp32c6-thread.yaml
+esphome -s thermia_component_source components run example-xiao-esp32c6-thread.yaml --device COMxx
 ```
 
 Ersätt `COMxx` med XIAO:s verkliga USB-port. Vid första nätverkstestet, lämna
@@ -122,9 +124,54 @@ nät. Batteridrivna Thread-givare fungerar normalt inte som routrar.
 
 För att återgå till WiFi, flasha `example-xiao-esp32c6.yaml` via USB igen.
 
+## Uppdatera över Thread utan USB
+
+När enheten redan kör Thread-profilen kan firmware skickas över nätet.
+OTA använder TCP-port 3232 och samma krypteringsnyckel som ESPHome API.
+Våra C6-exempel kräver nu krypterad OTA, ärvt från basfilen:
+
+```yaml
+ota:
+  - platform: esphome
+    encryption:
+```
+
+Behåll samma `api_encryption_key` som den installerade enheten använder.
+Enheten som redan kör ESPHome 2026.10.2 med vår API-nyckel erbjuder OTA-kryptering
+även med den tidigare `password:`-konfigurationen. Därför kan den uppdateras direkt
+med det nya exemplet. Efter uppdateringen ska OTA-loggen visa `Encryption: required`.
+
+Kör från repo-mappen med aktiverad venv och dina korta byggsökvägar:
+
+```bat
+git pull --ff-only
+set "ESPHOME_ESP_IDF_PREFIX=C:\temp\idf"
+set "ESPHOME_BUILD_PATH=C:\temp\b"
+esphome -s thermia_component_source components run example-xiao-esp32c6-thread.yaml --device thermia-duo-c6.local
+```
+
+Det bygger från komponenten du just hämtade med Git, laddar upp och öppnar loggen.
+Du behöver ingen COM-port. Thread har lägre kapacitet än WiFi, så överföringen kan
+ta flera minuter. Enheten startar om efter uppdateringen och EXT-länken återansluter.
+
+Om namnet inte fungerar, ersätt `thermia-duo-c6.local` med enhetens routbara
+Thread-IPv6-adress (OMR), exempelvis den adress Home Assistant ansluter till.
+Ange adressen direkt efter `--device`, utan URL eller hakparenteser. En
+`fe80::`-adress eller mesh-local/RLOC-adress med exempelvis `:0:ff:fe00:xxxx`
+är inte en lämplig adress från LAN. Det publicerade diagnostikvärdet kan vara en
+sådan intern adress; välj därför inte automatiskt det första IPv6-värdet.
+Datorn måste ha fungerande IPv6 och en väg via border routern till Thread-nätet.
+Att Home Assistant når enheten bevisar inte att Windows-datorn har samma väg.
+Vid timeout behöver vi kontrollera adress och IPv6-routning; börja inte med USB.
+
+För annan, äldre firmware: om loggen inte visar `Encryption: offered, plaintext accepted`
+eller `Encryption: required`, följ ESPHomes migreringsguide innan bytet. Lägg inte
+permanent till `allow_plaintext_upload: true`; det behövs inte för den testade C6-versionen.
+
 ## Referenser
 
 - [ESPHome: OpenThread](https://esphome.io/components/openthread/)
+- [ESPHome: OTA och migrering till kryptering](https://esphome.io/components/ota/esphome/#enabling-encryption-on-an-existing-device)
 - [Home Assistant: Thread och autentiseringsuppgifter](https://www.home-assistant.io/integrations/thread/)
 - [OpenThread: exportera aktivt dataset](https://openthread.io/reference/cli/concepts/dataset)
 - [Espressif: ESP Thread BR, CLI och dataset](https://docs.espressif.com/projects/esp-thread-br/en/latest/dev-guide/build_and_run.html)

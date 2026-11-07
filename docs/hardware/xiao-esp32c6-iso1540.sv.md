@@ -87,7 +87,8 @@ copy secrets.example.yaml secrets.yaml
 ```
 
 Om du redan har en aktiverad ESPHome-miljö kan du använda den. Fyll i `secrets.yaml`:
-WiFi-namn, WiFi-lösenord, API-nyckel, OTA-lösenord och lösenord till reservnätet.
+WiFi-namn, WiFi-lösenord, API-nyckel och lösenord till reservnätet.
+OTA återanvänder API-nyckeln; `ota_password` behövs inte för de aktuella C6-exemplen.
 `api_encryption_key` måste vara en giltig Base64-kodad 32-byte-nyckel. Skapa en med:
 
 ```bat

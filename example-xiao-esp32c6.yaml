@@ -39,7 +39,8 @@ api:
 
 ota:
   - platform: esphome
-    password: !secret ota_password
+    # Reuse api.encryption.key for authenticated, encrypted OTA uploads.
+    encryption:
 
 wifi:
   ssid: !secret wifi_ssid
