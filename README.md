@@ -42,6 +42,16 @@ Thermia EXT (5 V)      bi-directional level shifter      Wemos D1 mini (3.3 V)
   flash pins. GPIO21/22 work well on an ESP32 DevKit. The ESP32 is 3.3 V too – keep the level shifter.
   Minimal config: [`example-esp32.yaml`](example-esp32.yaml).
 
+### XIAO ESP32-C6 with ISO1540 (Thermia Duo 901510)
+
+Use [`example-xiao-esp32c6.yaml`](example-xiao-esp32c6.yaml) for USB-powered WiFi/EXT,
+or [`example-xiao-esp32c6-photomos.yaml`](example-xiao-esp32c6-photomos.yaml) after adding the
+three isolated PhotoMOS circuits for room emulation, night reduction and EVU.
+The [Swedish wiring and flashing guide](docs/hardware/xiao-esp32c6-iso1540.sv.md) covers the
+ISO1540 side orientation, XIAO D4/GPIO22 and D5/GPIO23, independent power/grounds,
+first communication and the optional PhotoMOS connections. The new C6 examples are compile-tested;
+their physical wiring and pump compatibility still require testing on the actual installation.
+
 ### EXT connector
 
 On the controller board of a Thermia Duo (PIC16F887 board) the EXT header is at the top edge, right next to the

@@ -1,0 +1,47 @@
+# Optional extension of the EXT-only configuration. Requires all three PhotoMOS
+# circuits to have been built and tested; see docs/hardware/xiao-esp32c6-iso1540.sv.md.
+# Keep example-xiao-esp32c6.yaml alongside this file.
+packages:
+  ext: !include example-xiao-esp32c6.yaml
+
+external_components:
+  - source: github://mtornblad/esphome-thermia-room@main
+    components: [thermia_room]
+
+thermia_room:
+  pin: GPIO0  # XIAO D0 -> 220 ohm -> AQY212EH pin 1; pin 2 -> XIAO GND
+  polarity_invert: false
+  frame_gap: 4s
+  room_temperature:
+    id: room_temperature_input
+    name: Rumstemperatur till rumsemulator
+  setpoint:
+    name: Rumsemulator borvarde
+    min_value: 18
+    max_value: 24
+  transmit:
+    id: room_transmit
+    name: Rumsemulator sandning
+    # Do not start sending a made-up/restored temperature after a reboot.
+    # Set a real measured temperature, then enable this manually for the lab test.
+    restore_mode: ALWAYS_OFF
+
+switch:
+  - platform: gpio
+    id: night_reduction
+    name: Nattsankning
+    pin: GPIO1  # XIAO D1 -> 220 ohm -> U2 pin 1
+    restore_mode: ALWAYS_OFF
+    interlock: [evu_block]
+    interlock_wait_time: 100ms
+  - platform: gpio
+    id: evu_block
+    name: EVU sparr
+    pin: GPIO21  # XIAO D3 -> 220 ohm -> U3 pin 1
+    restore_mode: ALWAYS_OFF
+    interlock: [night_reduction]
+    interlock_wait_time: 100ms
+
+# No Home Assistant room-sensor entity_id is assumed. For a first manual test,
+# set the actual measured room temperature with the exposed number entity.
+# Add a real sensor feed and a stale-data policy before automatic operation.

@@ -29,6 +29,12 @@ jobs:
           - target: esp32-c3
             config: example-esp32.yaml
             sed: "s#board: esp32dev#board: esp32-c3-devkitm-1#; s#GPIO21#GPIO6#; s#GPIO22#GPIO7#"
+          - target: xiao-esp32c6
+            config: example-xiao-esp32c6.yaml
+            sed: ""
+          - target: xiao-esp32c6-photomos
+            config: example-xiao-esp32c6-photomos.yaml
+            sed: ""
     name: esphome-compile (${{ matrix.target }})
     steps:
       - uses: actions/checkout@v4
@@ -44,6 +50,6 @@ jobs:
           cp secrets.example.yaml secrets.yaml
           sed -i "s#^api_encryption_key:.*#api_encryption_key: \"$(openssl rand -base64 32)\"#" secrets.yaml
       - name: Validate
-        run: esphome config ci.yaml
+        run: esphome -s thermia_component_source components config ci.yaml
       - name: Compile
-        run: esphome compile ci.yaml
+        run: esphome -s thermia_component_source components compile ci.yaml
