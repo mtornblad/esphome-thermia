@@ -149,9 +149,16 @@ thermia:
     min_value: 22
     max_value: 56
     step: 1
-  # Mode changes (including Off) are deliberately not exposed in the first-test config.
-  # setting_main_mode:
-  #   name: Driftlage
+  # Manual operating-mode selection. Adding this does not write anything at boot.
+  # Label order is fixed by register r33: Off, Auto, heat pump, heater, hot water.
+  setting_main_mode:
+    name: Driftlage
+    option_labels:
+      - Av
+      - Auto
+      - Endast värmepump
+      - Endast tillsats
+      - Endast varmvatten
 
 sensor:
   - platform: wifi_signal
