@@ -52,8 +52,12 @@ static bool network_is_connected() { return true; }  // no network component con
 void IRAM_ATTR ThermiaComponent::isr_(ThermiaComponent *self) { self->slave_.on_sda_fall(); }
 
 void ThermiaComponent::setup() {
-  for (uint8_t reg : this->registers_)
-    this->slave_.add_poll(reg);
+  for (uint8_t reg : this->registers_) {
+    if (this->foreground_registers_[reg])
+      this->slave_.add_poll(reg);
+    else
+      this->slave_.add_background_poll(reg);
+  }
 
   // Both pins come in as input + pull-up from the YAML schema; begin() then turns SDA into an open-drain output
   // the platform-specific way (see thermia_hw.h), so it must run after the pins' own setup().
@@ -223,11 +227,11 @@ void ThermiaComponent::update_link_(uint32_t now) {
   }
 }
 
-bool ThermiaComponent::fresh_value_(uint8_t reg, uint16_t &raw) const {
+bool ThermiaComponent::fresh_value_(uint8_t reg, uint16_t &raw, uint32_t stale_timeout_ms) const {
   const uint32_t slot = this->slave_.slot(reg);
   if ((slot >> 16) == 0)
     return false;  // never received
-  if (millis() - this->rx_ms_[reg] > this->stale_timeout_ms_)
+  if (millis() - this->rx_ms_[reg] > (stale_timeout_ms ? stale_timeout_ms : this->stale_timeout_ms_))
     return false;
   raw = slot & 0xFFFF;
   return true;
@@ -236,7 +240,7 @@ bool ThermiaComponent::fresh_value_(uint8_t reg, uint16_t &raw) const {
 void ThermiaComponent::update() {
   for (auto &b : this->sensors_) {
     uint16_t raw;
-    if (!this->fresh_value_(b.reg, raw)) {
+    if (!this->fresh_value_(b.reg, raw, b.stale_timeout_ms)) {
       if (b.sensor->has_state())
         b.sensor->publish_state(NAN);  // stale -> shows as unavailable/unknown in HA
       continue;
