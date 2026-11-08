@@ -29,11 +29,12 @@ class ThermiaComponent : public PollingComponent {
   // decimal_reg: register holding this value's tenths (0-9), or NO_DECIMAL_REG - see __init__.py _temp().
   static constexpr uint8_t NO_DECIMAL_REG = 0xFF;
   void add_sensor(uint8_t reg, sensor::Sensor *sensor, float scale, bool is_signed, float min, float max,
-                  uint8_t decimal_reg = NO_DECIMAL_REG) {
-    this->sensors_.push_back({reg, sensor, scale, is_signed, min, max, decimal_reg});
-    this->note_register_(reg);
+                  uint8_t decimal_reg = NO_DECIMAL_REG, bool background = false,
+                  uint32_t stale_timeout_ms = 0) {
+    this->sensors_.push_back({reg, sensor, scale, is_signed, min, max, decimal_reg, stale_timeout_ms});
+    this->note_register_(reg, background);
     if (decimal_reg != NO_DECIMAL_REG)
-      this->note_register_(decimal_reg);
+      this->note_register_(decimal_reg, background);
   }
   void add_binary_sensor(uint8_t reg, uint16_t mask, binary_sensor::BinarySensor *sensor) {
     this->binary_sensors_.push_back({reg, mask, sensor});
@@ -72,6 +73,7 @@ class ThermiaComponent : public PollingComponent {
     float min;
     float max;
     uint8_t decimal_reg;
+    uint32_t stale_timeout_ms;
   };
   struct BinaryBinding {
     uint8_t reg;
@@ -93,7 +95,9 @@ class ThermiaComponent : public PollingComponent {
 
   static void isr_(ThermiaComponent *self);
 
-  void note_register_(uint8_t reg) {
+  void note_register_(uint8_t reg, bool background = false) {
+    if (!background)
+      this->foreground_registers_[reg] = true;
     for (uint8_t r : this->registers_)
       if (r == reg)
         return;
@@ -101,7 +105,7 @@ class ThermiaComponent : public PollingComponent {
   }
 
   // Latest value of a register, if it was received recently enough.
-  bool fresh_value_(uint8_t reg, uint16_t &raw) const;
+  bool fresh_value_(uint8_t reg, uint16_t &raw, uint32_t stale_timeout_ms = 0) const;
   void refresh_timestamps_(uint32_t now);
   void drain_frame_log_();
   void dump_trace_();
@@ -133,6 +137,7 @@ class ThermiaComponent : public PollingComponent {
   std::vector<NumberBinding> numbers_;
   std::vector<SelectBinding> selects_;
   std::vector<uint8_t> registers_;
+  bool foreground_registers_[ThermiaSlave::MAX_REG + 1]{};
   binary_sensor::BinarySensor *link_{nullptr};
 
   uint16_t seen_seq_[ThermiaSlave::MAX_REG + 1]{};

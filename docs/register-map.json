@@ -1,0 +1,993 @@
+{
+  "source": "ThermIQ/thermiq_mqtt-ha",
+  "source_sha": "6b77e36c60a914793cab534a23697426375a338c",
+  "encoding": "unsigned 16-bit raw; signed/scaled interpretation is separate",
+  "registers": {
+    "r00": [
+      {
+        "key": "outdoor_t",
+        "label": "Utomhustemp.",
+        "unit": "°C",
+        "kind": "temperature"
+      }
+    ],
+    "r01": [
+      {
+        "key": "indoor_t",
+        "label": "Rumstemp. är",
+        "unit": "°C",
+        "kind": "temperature"
+      }
+    ],
+    "r02": [
+      {
+        "key": "indoor_dec_t",
+        "label": "Rumstemp. är, decimal",
+        "unit": "0.1C",
+        "kind": "temperature"
+      }
+    ],
+    "r03": [
+      {
+        "key": "indoor_target_t",
+        "label": "Rumstemp. bör",
+        "unit": "°C",
+        "kind": "temperature"
+      }
+    ],
+    "r04": [
+      {
+        "key": "indoor_target_dec_t",
+        "label": "Rumstemp. bör, decimal",
+        "unit": "0.1C",
+        "kind": "temperature"
+      }
+    ],
+    "r05": [
+      {
+        "key": "supplyline_t",
+        "label": "Framledningstemp.",
+        "unit": "°C",
+        "kind": "temperature"
+      }
+    ],
+    "r06": [
+      {
+        "key": "returnline_t",
+        "label": "Returledningstemp.",
+        "unit": "°C",
+        "kind": "temperature"
+      }
+    ],
+    "r07": [
+      {
+        "key": "boiler_t",
+        "label": "Varmvattentemp.",
+        "unit": "°C",
+        "kind": "temperature"
+      }
+    ],
+    "r08": [
+      {
+        "key": "brine_out_t",
+        "label": "Brine ut temp.",
+        "unit": "°C",
+        "kind": "temperature"
+      }
+    ],
+    "r09": [
+      {
+        "key": "brine_in_t",
+        "label": "Brine in temp.",
+        "unit": "°C",
+        "kind": "temperature"
+      }
+    ],
+    "r0a": [
+      {
+        "key": "cooling_t",
+        "label": "Kylning temp.",
+        "unit": "°C",
+        "kind": "temperature"
+      }
+    ],
+    "r0b": [
+      {
+        "key": "supply_shunt_t",
+        "label": "Framledn.temp., shunt",
+        "unit": "°C",
+        "kind": "temperature"
+      }
+    ],
+    "r0c": [
+      {
+        "key": "current_consumed_a",
+        "label": "Strömförbrukning",
+        "unit": "A",
+        "kind": "sensor"
+      }
+    ],
+    "r0d": [
+      {
+        "key": "boiler_3kw_on",
+        "label": "Tillsats 3 kW",
+        "unit": "",
+        "kind": "binary_sensor"
+      },
+      {
+        "key": "boiler_6kw_on",
+        "label": "Tillsats 6 kW",
+        "unit": "",
+        "kind": "binary_sensor"
+      }
+    ],
+    "r0e": [
+      {
+        "key": "supplyline_target_t",
+        "label": "Framledningstemp., bör",
+        "unit": "°C",
+        "kind": "temperature"
+      }
+    ],
+    "r0f": [
+      {
+        "key": "supplyline_shunt_target_t",
+        "label": "Framledn.temp., shunt, bör",
+        "unit": "°C",
+        "kind": "temperature"
+      }
+    ],
+    "r10": [
+      {
+        "key": "brine_pump_on",
+        "label": "Brinepump",
+        "unit": "",
+        "kind": "binary_sensor"
+      },
+      {
+        "key": "compressor_on",
+        "label": "Kompressor",
+        "unit": "",
+        "kind": "binary_sensor"
+      },
+      {
+        "key": "supply_pump_on",
+        "label": "Cirkulationspump",
+        "unit": "",
+        "kind": "binary_sensor"
+      },
+      {
+        "key": "hotwaterproduction_on",
+        "label": "Varmvattenprod.",
+        "unit": "",
+        "kind": "binary_sensor"
+      },
+      {
+        "key": "aux2_heating_on",
+        "label": "Tillsats 2",
+        "unit": "",
+        "kind": "binary_sensor"
+      },
+      {
+        "key": "shunt1_n",
+        "label": "Shunt -",
+        "unit": "",
+        "kind": "binary_sensor"
+      },
+      {
+        "key": "shunt1_p",
+        "label": "Shunt +",
+        "unit": "",
+        "kind": "binary_sensor"
+      },
+      {
+        "key": "aux1_heating_on",
+        "label": "Tillsats 1",
+        "unit": "",
+        "kind": "binary_sensor"
+      }
+    ],
+    "r11": [
+      {
+        "key": "shunt2_n",
+        "label": "Shuntgrupp -",
+        "unit": "",
+        "kind": "binary_sensor"
+      },
+      {
+        "key": "shunt2_p",
+        "label": "Shuntgrupp +",
+        "unit": "",
+        "kind": "binary_sensor"
+      },
+      {
+        "key": "shunt_cooling_n",
+        "label": "Shunt kylning -",
+        "unit": "",
+        "kind": "binary_sensor"
+      },
+      {
+        "key": "shunt_cooling_p",
+        "label": "Shunt kylning +",
+        "unit": "",
+        "kind": "binary_sensor"
+      },
+      {
+        "key": "active_cooling_on",
+        "label": "Aktiv kyla",
+        "unit": "",
+        "kind": "binary_sensor"
+      },
+      {
+        "key": "passive_cooling_on",
+        "label": "Passiv kyla",
+        "unit": "",
+        "kind": "binary_sensor"
+      },
+      {
+        "key": "alarm_indication_on",
+        "label": "Larm",
+        "unit": "",
+        "kind": "binary_sensor"
+      }
+    ],
+    "r12": [
+      {
+        "key": "pwm_out_period",
+        "label": "PWM Out",
+        "unit": "%",
+        "kind": "sensor"
+      }
+    ],
+    "r13": [
+      {
+        "key": "highpressure_alm",
+        "label": "Larm högtr.pressostat",
+        "unit": "",
+        "kind": "binary_sensor"
+      },
+      {
+        "key": "lowpressure_alm",
+        "label": "Larm lågtr.pressostat",
+        "unit": "",
+        "kind": "binary_sensor"
+      },
+      {
+        "key": "motorbreaker_alm",
+        "label": "Larm motorskydd",
+        "unit": "",
+        "kind": "binary_sensor"
+      },
+      {
+        "key": "brine_flow_alm",
+        "label": "Larm lågflöde brine",
+        "unit": "",
+        "kind": "binary_sensor"
+      },
+      {
+        "key": "brine_temperature_alm",
+        "label": "Larm lågtemp. brine",
+        "unit": "",
+        "kind": "binary_sensor"
+      }
+    ],
+    "r14": [
+      {
+        "key": "outdoor_sensor_alm",
+        "label": "Larm utegivare",
+        "unit": "",
+        "kind": "binary_sensor"
+      },
+      {
+        "key": "supplyline_sensor_alm",
+        "label": "Larm framledn.givare",
+        "unit": "",
+        "kind": "binary_sensor"
+      },
+      {
+        "key": "returnline_sensor_alm",
+        "label": "Larm returledn.givare",
+        "unit": "",
+        "kind": "binary_sensor"
+      },
+      {
+        "key": "boiler_sensor_alm",
+        "label": "Larm varmvattengivare",
+        "unit": "",
+        "kind": "binary_sensor"
+      },
+      {
+        "key": "indoor_sensor_alm",
+        "label": "Larm rumsgivare",
+        "unit": "",
+        "kind": "binary_sensor"
+      },
+      {
+        "key": "phase_order_alm",
+        "label": "Larm fel fasföljd",
+        "unit": "",
+        "kind": "binary_sensor"
+      },
+      {
+        "key": "overheating_alm",
+        "label": "Larm överhettningsskydd",
+        "unit": "",
+        "kind": "binary_sensor"
+      }
+    ],
+    "r15": [
+      {
+        "key": "demand1",
+        "label": "BEHOV1",
+        "unit": "",
+        "kind": "sensor"
+      }
+    ],
+    "r16": [
+      {
+        "key": "demand2",
+        "label": "BEHOV2",
+        "unit": "",
+        "kind": "sensor"
+      }
+    ],
+    "r17": [
+      {
+        "key": "pressurepipe_t",
+        "label": "Tryckrörtemp.",
+        "unit": "°C",
+        "kind": "temperature"
+      }
+    ],
+    "r18": [
+      {
+        "key": "hgw_water_t",
+        "label": "Varmv.framledn.temp",
+        "unit": "°C",
+        "kind": "temperature"
+      }
+    ],
+    "r19": [
+      {
+        "key": "integral1",
+        "label": "Integral (A1)",
+        "unit": "Cmin",
+        "kind": "sensor"
+      }
+    ],
+    "r1a": [
+      {
+        "key": "integral1_a_step",
+        "label": "Integral, uppnådd A-gräns",
+        "unit": "",
+        "kind": "sensor"
+      }
+    ],
+    "r1b": [
+      {
+        "key": "defrost_time_m",
+        "label": "Avfrostning",
+        "unit": "*10s",
+        "kind": "time"
+      }
+    ],
+    "r1c": [
+      {
+        "key": "time_to_start_min_m",
+        "label": "Minimum tid till start",
+        "unit": "min",
+        "kind": "time"
+      }
+    ],
+    "r1d": [
+      {
+        "key": "sw_version",
+        "label": "Programversion",
+        "unit": "",
+        "kind": "sensor"
+      }
+    ],
+    "r1e": [
+      {
+        "key": "supply_pump_speed",
+        "label": "Cirk.pump fart",
+        "unit": "%",
+        "kind": "sensor"
+      }
+    ],
+    "r1f": [
+      {
+        "key": "brine_pump_speed",
+        "label": "Brinepump fart",
+        "unit": "%",
+        "kind": "sensor"
+      }
+    ],
+    "r20": [
+      {
+        "key": "status3_m",
+        "label": "STATUS3",
+        "unit": "",
+        "kind": "sensor"
+      }
+    ],
+    "r32": [
+      {
+        "key": "indoor_requested_t",
+        "label": "Rumstemp., bör",
+        "unit": "°C",
+        "kind": "temperature_input"
+      }
+    ],
+    "r33": [
+      {
+        "key": "main_mode",
+        "label": "Driftläge",
+        "unit": "",
+        "kind": "select_input"
+      }
+    ],
+    "r34": [
+      {
+        "key": "integral1_curve_slope",
+        "label": "Kurva",
+        "unit": "°C",
+        "kind": "temperature_input"
+      }
+    ],
+    "r35": [
+      {
+        "key": "integral1_curve_min",
+        "label": "Kurva min",
+        "unit": "°C",
+        "kind": "temperature_input"
+      }
+    ],
+    "r36": [
+      {
+        "key": "integral1_curve_max",
+        "label": "Kurva max",
+        "unit": "°C",
+        "kind": "temperature_input"
+      }
+    ],
+    "r37": [
+      {
+        "key": "integral1_curve_p5",
+        "label": "Kurva +5",
+        "unit": "°C",
+        "kind": "temperature_input"
+      }
+    ],
+    "r38": [
+      {
+        "key": "integral1_curve_0",
+        "label": "Kurva 0",
+        "unit": "°C",
+        "kind": "temperature_input"
+      }
+    ],
+    "r39": [
+      {
+        "key": "integral1_curve_n5",
+        "label": "Kurva -5",
+        "unit": "°C",
+        "kind": "temperature_input"
+      }
+    ],
+    "r3a": [
+      {
+        "key": "heating_stop_t",
+        "label": "Värmestopp",
+        "unit": "°C",
+        "kind": "temperature_input"
+      }
+    ],
+    "r3b": [
+      {
+        "key": "reduction_t",
+        "label": "Temp. sänkning",
+        "unit": "°C",
+        "kind": "temperature_input"
+      }
+    ],
+    "r3c": [
+      {
+        "key": "room_factor",
+        "label": "Rumfaktor",
+        "unit": "factor",
+        "kind": "sensor_input"
+      }
+    ],
+    "r3d": [
+      {
+        "key": "integral2_curve_slope",
+        "label": "Shunt kurva",
+        "unit": "°C",
+        "kind": "temperature_input"
+      }
+    ],
+    "r3e": [
+      {
+        "key": "integral2_curve_min",
+        "label": "Shunt kurva min",
+        "unit": "°C",
+        "kind": "temperature_input"
+      }
+    ],
+    "r3f": [
+      {
+        "key": "integral2_curve_max",
+        "label": "Shunt kurva max",
+        "unit": "°C",
+        "kind": "temperature_input"
+      }
+    ],
+    "r40": [
+      {
+        "key": "integral2_curve_target",
+        "label": "Shunt kurva, bör",
+        "unit": "°C",
+        "kind": "temperature_input"
+      }
+    ],
+    "r41": [
+      {
+        "key": "integral2_curve_actual",
+        "label": "Shunt kurva, är",
+        "unit": "°C",
+        "kind": "temperature_input"
+      }
+    ],
+    "r42": [
+      {
+        "key": "outdoor_stop_t",
+        "label": "Utestopp temp, (20=-20C)",
+        "unit": "°C",
+        "kind": "temperature_input"
+      }
+    ],
+    "r43": [
+      {
+        "key": "pressure_pipe_limit_t",
+        "label": "Tryckrör, temp.gräns",
+        "unit": "°C",
+        "kind": "temperature_input"
+      }
+    ],
+    "r44": [
+      {
+        "key": "hotwater_start_t",
+        "label": "Varmvatten starttemp.",
+        "unit": "°C",
+        "kind": "temperature_input"
+      }
+    ],
+    "r45": [
+      {
+        "key": "hotwater_runtime_m",
+        "label": "Varmvattentid",
+        "unit": "min",
+        "kind": "time_input"
+      }
+    ],
+    "r46": [
+      {
+        "key": "heatpump_runtime_m",
+        "label": "Värmetid",
+        "unit": "min",
+        "kind": "time_input"
+      }
+    ],
+    "r47": [
+      {
+        "key": "legionella_interval_d",
+        "label": "Legionella intervall",
+        "unit": "days",
+        "kind": "time_input"
+      }
+    ],
+    "r48": [
+      {
+        "key": "legionella_stop_t",
+        "label": "Legionella stopptemp.",
+        "unit": "°C",
+        "kind": "temperature_input"
+      }
+    ],
+    "r49": [
+      {
+        "key": "integral1_a_limit",
+        "label": "Integralgräns A1",
+        "unit": "Cmin",
+        "kind": "sensor_input"
+      }
+    ],
+    "r4a": [
+      {
+        "key": "integral1_hysteresis_t",
+        "label": "Hysteresgräns A1",
+        "unit": "°C",
+        "kind": "temperature_input"
+      }
+    ],
+    "r4b": [
+      {
+        "key": "returnline_max_t",
+        "label": "Returledningstemp., maxgräns",
+        "unit": "°C",
+        "kind": "temperature_input"
+      }
+    ],
+    "r4c": [
+      {
+        "key": "start_interval_min_m",
+        "label": "Minimum startintervall",
+        "unit": "min",
+        "kind": "time_input"
+      }
+    ],
+    "r4d": [
+      {
+        "key": "brine_min_t",
+        "label": "Brinetemp., min.gräns (-15=AV)",
+        "unit": "°C",
+        "kind": "temperature_input"
+      }
+    ],
+    "r4e": [
+      {
+        "key": "cooling_target_t",
+        "label": "Kyla, bör",
+        "unit": "°C",
+        "kind": "temperature_input"
+      }
+    ],
+    "r4f": [
+      {
+        "key": "integral2_a_limit",
+        "label": "Integralgräns A2",
+        "unit": "10 Cmin",
+        "kind": "sensor_input"
+      }
+    ],
+    "r50": [
+      {
+        "key": "integral2_hysteresis_t",
+        "label": "Hysteresgräns A2",
+        "unit": "°C",
+        "kind": "temperature_input"
+      }
+    ],
+    "r51": [
+      {
+        "key": "elect_boiler_steps_max",
+        "label": "Max steg, tillsats",
+        "unit": "steps",
+        "kind": "sensor_input"
+      }
+    ],
+    "r52": [
+      {
+        "key": "current_consumption_max_a",
+        "label": "Strömförbrukn., maxgräns",
+        "unit": "A",
+        "kind": "sensor_input"
+      }
+    ],
+    "r53": [
+      {
+        "key": "shunt_time_s",
+        "label": "Shunttid",
+        "unit": "s",
+        "kind": "time_input"
+      }
+    ],
+    "r54": [
+      {
+        "key": "hotwater_stop_t",
+        "label": "Varmvatten stopptemp.",
+        "unit": "°C",
+        "kind": "temperature_input"
+      }
+    ],
+    "r55": [
+      {
+        "key": "manual_test_mode_on",
+        "label": "Manuell test läge",
+        "unit": "",
+        "kind": "sensor"
+      }
+    ],
+    "r56": [
+      {
+        "key": "status7",
+        "label": "DT_LARMOFF",
+        "unit": "",
+        "kind": "sensor"
+      }
+    ],
+    "r57": [
+      {
+        "key": "language",
+        "label": "Språk",
+        "unit": "",
+        "kind": "sensor_input"
+      }
+    ],
+    "r58": [
+      {
+        "key": "status8",
+        "label": "SERVFAS",
+        "unit": "",
+        "kind": "sensor"
+      }
+    ],
+    "r59": [
+      {
+        "key": "factory_reset_req",
+        "label": "Fabriksinställningar",
+        "unit": "setting",
+        "kind": "sensor"
+      }
+    ],
+    "r5a": [
+      {
+        "key": "runtime_counters_reset_req",
+        "label": "Nollställ drifttider",
+        "unit": "",
+        "kind": "sensor"
+      }
+    ],
+    "r5b": [
+      {
+        "key": "outdoor_sensor_offset_t",
+        "label": "Kalibrering utegivare",
+        "unit": "°C",
+        "kind": "temperature_input"
+      }
+    ],
+    "r5c": [
+      {
+        "key": "supplyline_sensor_offset_t",
+        "label": "Kalibrering framledn.givare",
+        "unit": "°C",
+        "kind": "temperature_input"
+      }
+    ],
+    "r5d": [
+      {
+        "key": "returnline_sensor_offset_t",
+        "label": "Kalibrering returledn.givare",
+        "unit": "°C",
+        "kind": "temperature_input"
+      }
+    ],
+    "r5e": [
+      {
+        "key": "boiler_sensor_offset_t",
+        "label": "Kalibrering varmvattengivare",
+        "unit": "°C",
+        "kind": "temperature_input"
+      }
+    ],
+    "r5f": [
+      {
+        "key": "brine_in_sensor_offset_t",
+        "label": "Kalibrering brine ut",
+        "unit": "°C",
+        "kind": "temperature_input"
+      }
+    ],
+    "r60": [
+      {
+        "key": "brine_out_sensor_offset_t",
+        "label": "Kalibrering brine in",
+        "unit": "°C",
+        "kind": "temperature_input"
+      }
+    ],
+    "r61": [
+      {
+        "key": "heatingsystem_type",
+        "label": "Värmesystemtyp 0=VL 4=D",
+        "unit": "type",
+        "kind": "sensor_input"
+      }
+    ],
+    "r62": [
+      {
+        "key": "opt_phasemeassure_installed",
+        "label": "Tillägg fasmätning",
+        "unit": "",
+        "kind": "binary_sensor"
+      },
+      {
+        "key": "opt_2_installed",
+        "label": "TILL2",
+        "unit": "",
+        "kind": "binary_sensor"
+      },
+      {
+        "key": "opt_hgw_installed",
+        "label": "Tillägg HGW",
+        "unit": "",
+        "kind": "binary_sensor"
+      },
+      {
+        "key": "opt_4_installed",
+        "label": "TILL4",
+        "unit": "",
+        "kind": "binary_sensor"
+      },
+      {
+        "key": "opt_5_installed",
+        "label": "TILL5",
+        "unit": "",
+        "kind": "binary_sensor"
+      },
+      {
+        "key": "opt_6_installed",
+        "label": "TILL6",
+        "unit": "",
+        "kind": "binary_sensor"
+      },
+      {
+        "key": "opt_optimum_installed",
+        "label": "Tillägg Optimum",
+        "unit": "",
+        "kind": "binary_sensor"
+      },
+      {
+        "key": "opt_flowguard_installed",
+        "label": "Tillägg flödesvakt",
+        "unit": "",
+        "kind": "binary_sensor"
+      }
+    ],
+    "r63": [
+      {
+        "key": "internal_logging_t",
+        "label": "Loggtid",
+        "unit": "min",
+        "kind": "time_input"
+      }
+    ],
+    "r64": [
+      {
+        "key": "brine_runout_t",
+        "label": "Brinetid på",
+        "unit": "*10s",
+        "kind": "time_input"
+      }
+    ],
+    "r65": [
+      {
+        "key": "brine_run_in_t",
+        "label": "Brinetid av",
+        "unit": "*10s",
+        "kind": "time_input"
+      }
+    ],
+    "r66": [
+      {
+        "key": "legionella_run_on",
+        "label": "Tillåt legionella körning",
+        "unit": "",
+        "kind": "sensor_input"
+      }
+    ],
+    "r67": [
+      {
+        "key": "legionella_run_length_h",
+        "label": "Legionella topptid",
+        "unit": "h",
+        "kind": "time_input"
+      }
+    ],
+    "r68": [
+      {
+        "key": "compressor_runtime_h",
+        "label": "Drifttid kompressor",
+        "unit": "h",
+        "kind": "time"
+      }
+    ],
+    "r69": [
+      {
+        "key": "msd1_dvp",
+        "label": "[alt Drifttid kompressor s]",
+        "unit": "",
+        "kind": "sensor"
+      }
+    ],
+    "r6a": [
+      {
+        "key": "boiler_3kw_runtime_h",
+        "label": "Drifttid 3 kW",
+        "unit": "h",
+        "kind": "time"
+      }
+    ],
+    "r6b": [
+      {
+        "key": "msd1_dts",
+        "label": "[alt Drifttid 3kW, s]",
+        "unit": "",
+        "kind": "sensor"
+      }
+    ],
+    "r6c": [
+      {
+        "key": "hotwater_runtime_h",
+        "label": "Drifttid varmv.prod. med kompr.",
+        "unit": "h",
+        "kind": "time"
+      }
+    ],
+    "r6d": [
+      {
+        "key": "msd1_dvv",
+        "label": "[alt Drifttid varmv.prod. med kompr. S]",
+        "unit": "",
+        "kind": "sensor"
+      }
+    ],
+    "r6e": [
+      {
+        "key": "passive_cooling_runtime_h",
+        "label": "Drifttid passiv kyla",
+        "unit": "h",
+        "kind": "time"
+      }
+    ],
+    "r6f": [
+      {
+        "key": "msd1_dpas",
+        "label": "[alt Drifttid passiv kyla s]",
+        "unit": "",
+        "kind": "sensor"
+      }
+    ],
+    "r70": [
+      {
+        "key": "active_cooling_runtime_h",
+        "label": "Drifttid aktiv kyla",
+        "unit": "h",
+        "kind": "time"
+      }
+    ],
+    "r71": [
+      {
+        "key": "msd1_dact",
+        "label": "[alt Drifttid aktiv kyla s]",
+        "unit": "",
+        "kind": "sensor"
+      }
+    ],
+    "r72": [
+      {
+        "key": "boiler_6kw_on_runtime_h",
+        "label": "Drifttid 6 kW",
+        "unit": "h",
+        "kind": "time"
+      }
+    ],
+    "r73": [
+      {
+        "key": "msd1_dts2",
+        "label": "[alt Drifttid 6 kW s]",
+        "unit": "",
+        "kind": "sensor"
+      }
+    ],
+    "r74": [
+      {
+        "key": "graph_display_offset",
+        "label": "GrafCounterOffSet   ",
+        "unit": "",
+        "kind": "sensor"
+      }
+    ]
+  }
+}

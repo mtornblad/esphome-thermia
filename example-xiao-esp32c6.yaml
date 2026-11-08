@@ -1,6 +1,9 @@
 # Thermia Duo / controller 901510, Seeed Studio XIAO ESP32-C6, ISO1540.
 # Wiring and first flash: docs/hardware/xiao-esp32c6-iso1540.sv.md
 # Start with this EXT-only configuration. The PhotoMOS version is a separate file.
+packages:
+  documented_registers: !include thermia-registers-readonly.yaml
+
 substitutions:
   thermia_component_source: github://mtornblad/esphome-thermia@main
 
@@ -149,6 +152,20 @@ thermia:
     min_value: 22
     max_value: 56
     step: 1
+  # Limited manual adjustments; these publish readback and never write at boot.
+  setting_curve_offset_p5:
+    name: Kurvjustering plus5
+  setting_curve_offset_0:
+    name: Kurvjustering noll
+  setting_curve_offset_n5:
+    name: Kurvjustering minus5
+  setting_heating_stop_temp:
+    name: Varmestopp
+    # Chosen HA working range, not a claim about the pump menu's full limits.
+    min_value: 10
+    max_value: 25
+  setting_room_factor:
+    name: Rumfaktor
   # Manual operating-mode selection. Adding this does not write anything at boot.
   # Label order is fixed by register r33: Off, Auto, heat pump, heater, hot water.
   setting_main_mode:

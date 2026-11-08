@@ -1,0 +1,704 @@
+# All 100 documented EXT registers, unsigned raw words, never writable.
+# Unsupported registers remain unknown. Background reads preserve foreground service.
+thermia:
+  registers:
+  - register: 0
+    name: Register r00
+    signed: false
+    background: true
+    stale_timeout: 30min
+    entity_category: diagnostic
+    accuracy_decimals: 0
+  - register: 1
+    name: Register r01
+    signed: false
+    background: true
+    stale_timeout: 30min
+    entity_category: diagnostic
+    accuracy_decimals: 0
+  - register: 2
+    name: Register r02
+    signed: false
+    background: true
+    stale_timeout: 30min
+    entity_category: diagnostic
+    accuracy_decimals: 0
+  - register: 3
+    name: Register r03
+    signed: false
+    background: true
+    stale_timeout: 30min
+    entity_category: diagnostic
+    accuracy_decimals: 0
+  - register: 4
+    name: Register r04
+    signed: false
+    background: true
+    stale_timeout: 30min
+    entity_category: diagnostic
+    accuracy_decimals: 0
+  - register: 5
+    name: Register r05
+    signed: false
+    background: true
+    stale_timeout: 30min
+    entity_category: diagnostic
+    accuracy_decimals: 0
+  - register: 6
+    name: Register r06
+    signed: false
+    background: true
+    stale_timeout: 30min
+    entity_category: diagnostic
+    accuracy_decimals: 0
+  - register: 7
+    name: Register r07
+    signed: false
+    background: true
+    stale_timeout: 30min
+    entity_category: diagnostic
+    accuracy_decimals: 0
+  - register: 8
+    name: Register r08
+    signed: false
+    background: true
+    stale_timeout: 30min
+    entity_category: diagnostic
+    accuracy_decimals: 0
+  - register: 9
+    name: Register r09
+    signed: false
+    background: true
+    stale_timeout: 30min
+    entity_category: diagnostic
+    accuracy_decimals: 0
+  - register: 10
+    name: Register r0a
+    signed: false
+    background: true
+    stale_timeout: 30min
+    entity_category: diagnostic
+    accuracy_decimals: 0
+  - register: 11
+    name: Register r0b
+    signed: false
+    background: true
+    stale_timeout: 30min
+    entity_category: diagnostic
+    accuracy_decimals: 0
+  - register: 12
+    name: Register r0c
+    signed: false
+    background: true
+    stale_timeout: 30min
+    entity_category: diagnostic
+    accuracy_decimals: 0
+  - register: 13
+    name: Register r0d
+    signed: false
+    background: true
+    stale_timeout: 30min
+    entity_category: diagnostic
+    accuracy_decimals: 0
+  - register: 14
+    name: Register r0e
+    signed: false
+    background: true
+    stale_timeout: 30min
+    entity_category: diagnostic
+    accuracy_decimals: 0
+  - register: 15
+    name: Register r0f
+    signed: false
+    background: true
+    stale_timeout: 30min
+    entity_category: diagnostic
+    accuracy_decimals: 0
+  - register: 16
+    name: Register r10
+    signed: false
+    background: true
+    stale_timeout: 30min
+    entity_category: diagnostic
+    accuracy_decimals: 0
+  - register: 17
+    name: Register r11
+    signed: false
+    background: true
+    stale_timeout: 30min
+    entity_category: diagnostic
+    accuracy_decimals: 0
+  - register: 18
+    name: Register r12
+    signed: false
+    background: true
+    stale_timeout: 30min
+    entity_category: diagnostic
+    accuracy_decimals: 0
+  - register: 19
+    name: Register r13
+    signed: false
+    background: true
+    stale_timeout: 30min
+    entity_category: diagnostic
+    accuracy_decimals: 0
+  - register: 20
+    name: Register r14
+    signed: false
+    background: true
+    stale_timeout: 30min
+    entity_category: diagnostic
+    accuracy_decimals: 0
+  - register: 21
+    name: Register r15
+    signed: false
+    background: true
+    stale_timeout: 30min
+    entity_category: diagnostic
+    accuracy_decimals: 0
+  - register: 22
+    name: Register r16
+    signed: false
+    background: true
+    stale_timeout: 30min
+    entity_category: diagnostic
+    accuracy_decimals: 0
+  - register: 23
+    name: Register r17
+    signed: false
+    background: true
+    stale_timeout: 30min
+    entity_category: diagnostic
+    accuracy_decimals: 0
+  - register: 24
+    name: Register r18
+    signed: false
+    background: true
+    stale_timeout: 30min
+    entity_category: diagnostic
+    accuracy_decimals: 0
+  - register: 25
+    name: Register r19
+    signed: false
+    background: true
+    stale_timeout: 30min
+    entity_category: diagnostic
+    accuracy_decimals: 0
+  - register: 26
+    name: Register r1a
+    signed: false
+    background: true
+    stale_timeout: 30min
+    entity_category: diagnostic
+    accuracy_decimals: 0
+  - register: 27
+    name: Register r1b
+    signed: false
+    background: true
+    stale_timeout: 30min
+    entity_category: diagnostic
+    accuracy_decimals: 0
+  - register: 28
+    name: Register r1c
+    signed: false
+    background: true
+    stale_timeout: 30min
+    entity_category: diagnostic
+    accuracy_decimals: 0
+  - register: 29
+    name: Register r1d
+    signed: false
+    background: true
+    stale_timeout: 30min
+    entity_category: diagnostic
+    accuracy_decimals: 0
+  - register: 30
+    name: Register r1e
+    signed: false
+    background: true
+    stale_timeout: 30min
+    entity_category: diagnostic
+    accuracy_decimals: 0
+  - register: 31
+    name: Register r1f
+    signed: false
+    background: true
+    stale_timeout: 30min
+    entity_category: diagnostic
+    accuracy_decimals: 0
+  - register: 32
+    name: Register r20
+    signed: false
+    background: true
+    stale_timeout: 30min
+    entity_category: diagnostic
+    accuracy_decimals: 0
+  - register: 50
+    name: Register r32
+    signed: false
+    background: true
+    stale_timeout: 30min
+    entity_category: diagnostic
+    accuracy_decimals: 0
+  - register: 51
+    name: Register r33
+    signed: false
+    background: true
+    stale_timeout: 30min
+    entity_category: diagnostic
+    accuracy_decimals: 0
+  - register: 52
+    name: Register r34
+    signed: false
+    background: true
+    stale_timeout: 30min
+    entity_category: diagnostic
+    accuracy_decimals: 0
+  - register: 53
+    name: Register r35
+    signed: false
+    background: true
+    stale_timeout: 30min
+    entity_category: diagnostic
+    accuracy_decimals: 0
+  - register: 54
+    name: Register r36
+    signed: false
+    background: true
+    stale_timeout: 30min
+    entity_category: diagnostic
+    accuracy_decimals: 0
+  - register: 55
+    name: Register r37
+    signed: false
+    background: true
+    stale_timeout: 30min
+    entity_category: diagnostic
+    accuracy_decimals: 0
+  - register: 56
+    name: Register r38
+    signed: false
+    background: true
+    stale_timeout: 30min
+    entity_category: diagnostic
+    accuracy_decimals: 0
+  - register: 57
+    name: Register r39
+    signed: false
+    background: true
+    stale_timeout: 30min
+    entity_category: diagnostic
+    accuracy_decimals: 0
+  - register: 58
+    name: Register r3a
+    signed: false
+    background: true
+    stale_timeout: 30min
+    entity_category: diagnostic
+    accuracy_decimals: 0
+  - register: 59
+    name: Register r3b
+    signed: false
+    background: true
+    stale_timeout: 30min
+    entity_category: diagnostic
+    accuracy_decimals: 0
+  - register: 60
+    name: Register r3c
+    signed: false
+    background: true
+    stale_timeout: 30min
+    entity_category: diagnostic
+    accuracy_decimals: 0
+  - register: 61
+    name: Register r3d
+    signed: false
+    background: true
+    stale_timeout: 30min
+    entity_category: diagnostic
+    accuracy_decimals: 0
+  - register: 62
+    name: Register r3e
+    signed: false
+    background: true
+    stale_timeout: 30min
+    entity_category: diagnostic
+    accuracy_decimals: 0
+  - register: 63
+    name: Register r3f
+    signed: false
+    background: true
+    stale_timeout: 30min
+    entity_category: diagnostic
+    accuracy_decimals: 0
+  - register: 64
+    name: Register r40
+    signed: false
+    background: true
+    stale_timeout: 30min
+    entity_category: diagnostic
+    accuracy_decimals: 0
+  - register: 65
+    name: Register r41
+    signed: false
+    background: true
+    stale_timeout: 30min
+    entity_category: diagnostic
+    accuracy_decimals: 0
+  - register: 66
+    name: Register r42
+    signed: false
+    background: true
+    stale_timeout: 30min
+    entity_category: diagnostic
+    accuracy_decimals: 0
+  - register: 67
+    name: Register r43
+    signed: false
+    background: true
+    stale_timeout: 30min
+    entity_category: diagnostic
+    accuracy_decimals: 0
+  - register: 68
+    name: Register r44
+    signed: false
+    background: true
+    stale_timeout: 30min
+    entity_category: diagnostic
+    accuracy_decimals: 0
+  - register: 69
+    name: Register r45
+    signed: false
+    background: true
+    stale_timeout: 30min
+    entity_category: diagnostic
+    accuracy_decimals: 0
+  - register: 70
+    name: Register r46
+    signed: false
+    background: true
+    stale_timeout: 30min
+    entity_category: diagnostic
+    accuracy_decimals: 0
+  - register: 71
+    name: Register r47
+    signed: false
+    background: true
+    stale_timeout: 30min
+    entity_category: diagnostic
+    accuracy_decimals: 0
+  - register: 72
+    name: Register r48
+    signed: false
+    background: true
+    stale_timeout: 30min
+    entity_category: diagnostic
+    accuracy_decimals: 0
+  - register: 73
+    name: Register r49
+    signed: false
+    background: true
+    stale_timeout: 30min
+    entity_category: diagnostic
+    accuracy_decimals: 0
+  - register: 74
+    name: Register r4a
+    signed: false
+    background: true
+    stale_timeout: 30min
+    entity_category: diagnostic
+    accuracy_decimals: 0
+  - register: 75
+    name: Register r4b
+    signed: false
+    background: true
+    stale_timeout: 30min
+    entity_category: diagnostic
+    accuracy_decimals: 0
+  - register: 76
+    name: Register r4c
+    signed: false
+    background: true
+    stale_timeout: 30min
+    entity_category: diagnostic
+    accuracy_decimals: 0
+  - register: 77
+    name: Register r4d
+    signed: false
+    background: true
+    stale_timeout: 30min
+    entity_category: diagnostic
+    accuracy_decimals: 0
+  - register: 78
+    name: Register r4e
+    signed: false
+    background: true
+    stale_timeout: 30min
+    entity_category: diagnostic
+    accuracy_decimals: 0
+  - register: 79
+    name: Register r4f
+    signed: false
+    background: true
+    stale_timeout: 30min
+    entity_category: diagnostic
+    accuracy_decimals: 0
+  - register: 80
+    name: Register r50
+    signed: false
+    background: true
+    stale_timeout: 30min
+    entity_category: diagnostic
+    accuracy_decimals: 0
+  - register: 81
+    name: Register r51
+    signed: false
+    background: true
+    stale_timeout: 30min
+    entity_category: diagnostic
+    accuracy_decimals: 0
+  - register: 82
+    name: Register r52
+    signed: false
+    background: true
+    stale_timeout: 30min
+    entity_category: diagnostic
+    accuracy_decimals: 0
+  - register: 83
+    name: Register r53
+    signed: false
+    background: true
+    stale_timeout: 30min
+    entity_category: diagnostic
+    accuracy_decimals: 0
+  - register: 84
+    name: Register r54
+    signed: false
+    background: true
+    stale_timeout: 30min
+    entity_category: diagnostic
+    accuracy_decimals: 0
+  - register: 85
+    name: Register r55
+    signed: false
+    background: true
+    stale_timeout: 30min
+    entity_category: diagnostic
+    accuracy_decimals: 0
+  - register: 86
+    name: Register r56
+    signed: false
+    background: true
+    stale_timeout: 30min
+    entity_category: diagnostic
+    accuracy_decimals: 0
+  - register: 87
+    name: Register r57
+    signed: false
+    background: true
+    stale_timeout: 30min
+    entity_category: diagnostic
+    accuracy_decimals: 0
+  - register: 88
+    name: Register r58
+    signed: false
+    background: true
+    stale_timeout: 30min
+    entity_category: diagnostic
+    accuracy_decimals: 0
+  - register: 89
+    name: Register r59
+    signed: false
+    background: true
+    stale_timeout: 30min
+    entity_category: diagnostic
+    accuracy_decimals: 0
+  - register: 90
+    name: Register r5a
+    signed: false
+    background: true
+    stale_timeout: 30min
+    entity_category: diagnostic
+    accuracy_decimals: 0
+  - register: 91
+    name: Register r5b
+    signed: false
+    background: true
+    stale_timeout: 30min
+    entity_category: diagnostic
+    accuracy_decimals: 0
+  - register: 92
+    name: Register r5c
+    signed: false
+    background: true
+    stale_timeout: 30min
+    entity_category: diagnostic
+    accuracy_decimals: 0
+  - register: 93
+    name: Register r5d
+    signed: false
+    background: true
+    stale_timeout: 30min
+    entity_category: diagnostic
+    accuracy_decimals: 0
+  - register: 94
+    name: Register r5e
+    signed: false
+    background: true
+    stale_timeout: 30min
+    entity_category: diagnostic
+    accuracy_decimals: 0
+  - register: 95
+    name: Register r5f
+    signed: false
+    background: true
+    stale_timeout: 30min
+    entity_category: diagnostic
+    accuracy_decimals: 0
+  - register: 96
+    name: Register r60
+    signed: false
+    background: true
+    stale_timeout: 30min
+    entity_category: diagnostic
+    accuracy_decimals: 0
+  - register: 97
+    name: Register r61
+    signed: false
+    background: true
+    stale_timeout: 30min
+    entity_category: diagnostic
+    accuracy_decimals: 0
+  - register: 98
+    name: Register r62
+    signed: false
+    background: true
+    stale_timeout: 30min
+    entity_category: diagnostic
+    accuracy_decimals: 0
+  - register: 99
+    name: Register r63
+    signed: false
+    background: true
+    stale_timeout: 30min
+    entity_category: diagnostic
+    accuracy_decimals: 0
+  - register: 100
+    name: Register r64
+    signed: false
+    background: true
+    stale_timeout: 30min
+    entity_category: diagnostic
+    accuracy_decimals: 0
+  - register: 101
+    name: Register r65
+    signed: false
+    background: true
+    stale_timeout: 30min
+    entity_category: diagnostic
+    accuracy_decimals: 0
+  - register: 102
+    name: Register r66
+    signed: false
+    background: true
+    stale_timeout: 30min
+    entity_category: diagnostic
+    accuracy_decimals: 0
+  - register: 103
+    name: Register r67
+    signed: false
+    background: true
+    stale_timeout: 30min
+    entity_category: diagnostic
+    accuracy_decimals: 0
+  - register: 104
+    name: Register r68
+    signed: false
+    background: true
+    stale_timeout: 30min
+    entity_category: diagnostic
+    accuracy_decimals: 0
+  - register: 105
+    name: Register r69
+    signed: false
+    background: true
+    stale_timeout: 30min
+    entity_category: diagnostic
+    accuracy_decimals: 0
+  - register: 106
+    name: Register r6a
+    signed: false
+    background: true
+    stale_timeout: 30min
+    entity_category: diagnostic
+    accuracy_decimals: 0
+  - register: 107
+    name: Register r6b
+    signed: false
+    background: true
+    stale_timeout: 30min
+    entity_category: diagnostic
+    accuracy_decimals: 0
+  - register: 108
+    name: Register r6c
+    signed: false
+    background: true
+    stale_timeout: 30min
+    entity_category: diagnostic
+    accuracy_decimals: 0
+  - register: 109
+    name: Register r6d
+    signed: false
+    background: true
+    stale_timeout: 30min
+    entity_category: diagnostic
+    accuracy_decimals: 0
+  - register: 110
+    name: Register r6e
+    signed: false
+    background: true
+    stale_timeout: 30min
+    entity_category: diagnostic
+    accuracy_decimals: 0
+  - register: 111
+    name: Register r6f
+    signed: false
+    background: true
+    stale_timeout: 30min
+    entity_category: diagnostic
+    accuracy_decimals: 0
+  - register: 112
+    name: Register r70
+    signed: false
+    background: true
+    stale_timeout: 30min
+    entity_category: diagnostic
+    accuracy_decimals: 0
+  - register: 113
+    name: Register r71
+    signed: false
+    background: true
+    stale_timeout: 30min
+    entity_category: diagnostic
+    accuracy_decimals: 0
+  - register: 114
+    name: Register r72
+    signed: false
+    background: true
+    stale_timeout: 30min
+    entity_category: diagnostic
+    accuracy_decimals: 0
+  - register: 115
+    name: Register r73
+    signed: false
+    background: true
+    stale_timeout: 30min
+    entity_category: diagnostic
+    accuracy_decimals: 0
+  - register: 116
+    name: Register r74
+    signed: false
+    background: true
+    stale_timeout: 30min
+    entity_category: diagnostic
+    accuracy_decimals: 0

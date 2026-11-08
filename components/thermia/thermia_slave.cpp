@@ -261,7 +261,7 @@ void IRAM_ATTR ThermiaSlave::on_message(const uint8_t *buf, uint8_t stored, uint
 
 void IRAM_ATTR ThermiaSlave::on_ping() {
   pings_++;
-  if (poll_n_ == 0)
+  if (poll_n_ == 0 && background_n_ == 0)
     return;
   if (req_reg_ != RESP_IDLE) {  // previous request was not answered
     if (++req_tries_ >= request_tries_) {
@@ -270,7 +270,14 @@ void IRAM_ATTR ThermiaSlave::on_ping() {
     }
   }
   if (req_reg_ == RESP_IDLE) {
-    req_reg_ = poll_[poll_idx_];
+    background_active_ = background_n_ != 0 &&
+                         (poll_n_ == 0 || foreground_since_background_ >= FOREGROUND_PER_BACKGROUND);
+    if (background_active_) {
+      req_reg_ = background_[background_idx_];
+      foreground_since_background_ = 0;
+    } else {
+      req_reg_ = poll_[poll_idx_];
+    }
     req_tries_ = 0;
   }
 }
@@ -289,8 +296,15 @@ void IRAM_ATTR ThermiaSlave::on_data(uint8_t reg, uint16_t value) {
 void IRAM_ATTR ThermiaSlave::advance() {
   req_reg_ = RESP_IDLE;
   req_tries_ = 0;
-  if (++poll_idx_ >= poll_n_)
-    poll_idx_ = 0;
+  if (background_active_) {
+    if (++background_idx_ >= background_n_)
+      background_idx_ = 0;
+  } else {
+    if (++poll_idx_ >= poll_n_)
+      poll_idx_ = 0;
+    if (background_n_ != 0 && foreground_since_background_ < FOREGROUND_PER_BACKGROUND)
+      foreground_since_background_++;
+  }
 }
 
 void IRAM_ATTR ThermiaSlave::on_write_response_done(bool delivered) {

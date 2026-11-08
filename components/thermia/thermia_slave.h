@@ -87,7 +87,25 @@ class ThermiaSlave {
     if (reg > MAX_REG || poll_n_ >= sizeof(poll_)) return;
     for (uint8_t i = 0; i < poll_n_; i++)
       if (poll_[i] == reg) return;
+    // Setup only: foreground bindings take precedence over raw background copies.
+    for (uint8_t i = 0; i < background_n_; i++) {
+      if (background_[i] == reg) {
+        for (uint8_t j = i + 1; j < background_n_; j++)
+          background_[j - 1] = background_[j];
+        background_n_--;
+        break;
+      }
+    }
     poll_[poll_n_++] = reg;
+  }
+
+  void add_background_poll(uint8_t reg) {
+    if (reg > MAX_REG || background_n_ >= sizeof(background_)) return;
+    for (uint8_t i = 0; i < poll_n_; i++)
+      if (poll_[i] == reg) return;
+    for (uint8_t i = 0; i < background_n_; i++)
+      if (background_[i] == reg) return;
+    background_[background_n_++] = reg;
   }
 
   void set_log_enabled(bool enabled) { log_enabled_ = enabled; }
@@ -193,6 +211,7 @@ class ThermiaSlave {
   uint32_t max_isr_us() const { return max_isr_ticks_ / hw::TICKS_PER_US; }
   uint8_t poll_count() const { return poll_n_; }
   uint8_t poll_at(uint8_t i) const { return poll_[i]; }
+  uint8_t background_poll_count() const { return background_n_; }
 
   bool guard_tripped() const { return guard_; }
   void reset_guard() {
@@ -271,6 +290,12 @@ class ThermiaSlave {
   uint8_t poll_[128];
   uint8_t poll_n_{0};
   volatile uint8_t poll_idx_{0};
+  uint8_t background_[128];
+  uint8_t background_n_{0};
+  volatile uint8_t background_idx_{0};
+  volatile uint8_t foreground_since_background_{0};
+  volatile bool background_active_{false};
+  static constexpr uint8_t FOREGROUND_PER_BACKGROUND = 8;
   volatile uint8_t req_reg_{RESP_IDLE};
   volatile uint8_t req_tries_{0};
   uint8_t request_tries_{DEFAULT_REQUEST_TRIES};
