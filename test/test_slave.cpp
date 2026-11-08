@@ -269,6 +269,73 @@ static void test_request_tries_configurable() {
   CHECK(z.ping(0xFE, 1, 0) == 0x11 && z.ping(0xFE, 1, 0) == 0x22, "0 behaves like 1 try");
 }
 
+static void test_background_polling() {
+  printf("background reads interleave after eight foreground completions, remain read-only, and cannot starve foreground\n");
+  Bench b({0x05, 0x10});
+  b.slave.add_background_poll(0x05);  // foreground duplicate
+  b.slave.add_background_poll(0x35);
+  b.slave.add_background_poll(0x35);
+  b.slave.add_background_poll(0x36);
+  b.slave.add_background_poll(0x80);
+  CHECK(b.slave.background_poll_count() == 2, "deduplication and read-address bounds");
+  for (int i = 0; i < 28; i++) {
+    uint8_t want = (i == 8 || i == 26) ? 0x35 : i == 17 ? 0x36 :
+                   ((i - i / 9) % 2 == 0 ? 0x05 : 0x10);
+    const uint8_t got = b.ping(0xFE, 1, 0);
+    CHECK(got == want, "poll %d expected r%02X got r%02X", i, want, got);
+    CHECK(got <= 0x7F, "automatic polling never writes");
+    b.send_data(got, i, 1, 0);
+  }
+
+  Bench silent({0x05});
+  silent.slave.set_request_tries(3);
+  silent.slave.add_background_poll(0x35);
+  for (int i = 0; i < 8; i++) {
+    CHECK(silent.ping(0xFE, 1, 0) == 0x05, "foreground before background");
+    silent.send_data(0x05, 1, 1, 0);
+  }
+  for (int i = 0; i < 3; i++)
+    CHECK(silent.ping(0xFE, 1, 0) == 0x35, "bounded retries for a missing background register");
+  CHECK(silent.ping(0xFE, 1, 0) == 0x05, "returns to foreground after background timeout");
+  CHECK(silent.slave.unanswered() == 1, "background timeout is counted");
+  silent.send_data(0x35, 9, 1, 0);
+  CHECK((silent.slave.slot(0x35) & 0xFFFF) == 9, "late background response retained");
+  CHECK(silent.ping(0xFE, 1, 0) == 0x05, "late response does not advance foreground");
+
+  Bench only({});
+  only.slave.add_background_poll(0x35);
+  CHECK(only.ping(0xFE, 1, 0) == 0x35, "background-only configuration works");
+  only.send_data(0x35, 1, 1, 0);
+  CHECK(only.ping(0xFE, 1, 0) == 0x35, "background-only wraps");
+
+  Bench promoted({});
+  promoted.slave.add_background_poll(0x35);
+  promoted.slave.add_poll(0x35);
+  CHECK(promoted.slave.background_poll_count() == 0, "foreground promotion removes background duplicate");
+  CHECK(promoted.ping(0xFE, 1, 0) == 0x35, "promoted register is foreground");
+}
+
+static void test_documented_register_scan_is_readonly() {
+  printf("all 100 documented addresses can be scanned without emitting a write\n");
+  Bench b({0x05, 0x10});
+  bool seen[128]{};
+  for (int r = 0; r <= 0x74; r++)
+    if (r <= 0x20 || r >= 0x32)
+      b.slave.add_background_poll((uint8_t) r);
+  CHECK(b.slave.background_poll_count() == 98, "100 unique addresses, two foreground");
+  for (int i = 0; i < 900; i++) {
+    uint8_t r = b.ping(0xFE, 1, 0);
+    CHECK(r <= 0x7F && (r <= 0x20 || (r >= 0x32 && r <= 0x74)), "only documented read commands");
+    if (r <= 0x7F)
+      seen[r] = true;
+    b.send_data(r, 0xFFFB, 1, 0);
+  }
+  for (int r = 0; r <= 0x74; r++)
+    if (r <= 0x20 || r >= 0x32)
+      CHECK(seen[r], "documented r%02X was polled", r);
+  CHECK(!b.slave.write_pending() && b.slave.writes_delivered() == 0, "scan queued/delivered no writes");
+}
+
 static void test_multi_byte_read() {
   printf("master reading several bytes\n");
   Bench b({0x0E});
@@ -557,6 +624,8 @@ int main() {
   test_idle_and_readonly();
   test_unanswered_register_is_skipped();
   test_request_tries_configurable();
+  test_background_polling();
+  test_documented_register_scan_is_readonly();
   test_multi_byte_read();
   test_other_address_ignored();
   test_unknown_and_short_messages();
