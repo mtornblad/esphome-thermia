@@ -66,6 +66,7 @@ CONF_SET_REGISTERS = "set_registers"
 CONF_REGISTER = "register"
 CONF_SCALE = "scale"
 CONF_SIGNED = "signed"
+CONF_OPTION_LABELS = "option_labels"
 
 # Plausibility window for temperatures; anything outside is treated as a corrupted frame.
 _T_MIN, _T_MAX = -60.0, 200.0
@@ -289,8 +290,22 @@ for _key, _spec in NUMBERS.items():
             cv.Optional(CONF_STEP, default=_spec.get("step", 1.0)): cv.positive_float,
         }
     )
+
+
+def _mode_option_labels(value):
+    """Translate labels without changing the five register values or their order."""
+    labels = cv.All(cv.ensure_list(cv.string_strict), cv.Length(min=5, max=5))(value)
+    if any(not label.strip() for label in labels):
+        raise cv.Invalid("Mode option labels must not be empty")
+    if len(set(labels)) != len(labels):
+        raise cv.Invalid("Mode option labels must be unique")
+    return labels
+
+
 for _key, _spec in SELECTS.items():
-    _schema[cv.Optional(_key)] = select.select_schema(ThermiaSelect, **_spec["schema"])
+    _schema[cv.Optional(_key)] = select.select_schema(ThermiaSelect, **_spec["schema"]).extend(
+        {cv.Optional(CONF_OPTION_LABELS): _mode_option_labels}
+    )
 
 
 # The ISR samples both lines with one register read (see thermia_hw.h), so both must be in the register it reads:
@@ -376,7 +391,9 @@ async def to_code(config):
 
     for key, spec in SELECTS.items():
         if key in config:
-            sel = await select.new_select(config[key], options=spec["options"])
+            sel = await select.new_select(
+                config[key], options=config[key].get(CONF_OPTION_LABELS, spec["options"])
+            )
             cg.add(sel.set_parent(var))
             cg.add(sel.set_register(spec["reg"]))
             cg.add(var.add_select(spec["reg"], sel))
