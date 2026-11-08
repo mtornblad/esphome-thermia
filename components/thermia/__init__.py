@@ -67,6 +67,7 @@ CONF_REGISTER = "register"
 CONF_SCALE = "scale"
 CONF_SIGNED = "signed"
 CONF_OPTION_LABELS = "option_labels"
+CONF_BACKGROUND = "background"
 
 # Plausibility window for temperatures; anything outside is treated as a corrupted frame.
 _T_MIN, _T_MAX = -60.0, 200.0
@@ -242,6 +243,8 @@ RAW_SENSOR_SCHEMA = sensor.sensor_schema(accuracy_decimals=0).extend(
         cv.Required(CONF_REGISTER): _REGISTER,
         cv.Optional(CONF_SCALE, default=1.0): cv.float_,
         cv.Optional(CONF_SIGNED, default=True): cv.boolean,
+        cv.Optional(CONF_BACKGROUND, default=False): cv.boolean,
+        cv.Optional(CONF_STALE_TIMEOUT): cv.positive_time_period_milliseconds,
     }
 )
 
@@ -375,7 +378,9 @@ async def to_code(config):
 
     for raw in config.get(CONF_REGISTERS, []):
         sens = await sensor.new_sensor(raw)
-        cg.add(var.add_sensor(raw[CONF_REGISTER], sens, raw[CONF_SCALE], raw[CONF_SIGNED], -_ANY, _ANY))
+        background = raw[CONF_BACKGROUND]
+        cg.add(var.add_sensor(raw[CONF_REGISTER], sens, raw[CONF_SCALE], raw[CONF_SIGNED], -_ANY, _ANY,
+                              0xFF, background, raw.get(CONF_STALE_TIMEOUT, 1800000 if background else 0)))
 
     for key, spec in NUMBERS.items():
         if key in config:
